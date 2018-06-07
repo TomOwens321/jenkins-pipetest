@@ -1,0 +1,26 @@
+version: "3.6"
+services:
+
+  jmaster:
+    build: ./jmaster
+    hostname: "jmaster"
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - j_master:/var/jenkins_home
+  
+  jslave:
+    build: ./jslave
+    hostname: "jslave"
+    ports:
+      - "8080"
+      - "50000"
+    volumes:
+      - j_slave:/home/jenkins
+    depends_on:
+      - jmaster
+
+volumes:
+  j_master:
+  j_slave:
